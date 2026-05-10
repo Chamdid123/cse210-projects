@@ -12,7 +12,7 @@ class Program
         {
         
             Random RandomGenerator = new Random();
-            int magicNumber = RandomGenerator.Next(1,100);
+            int magicNumber= RandomGenerator.Next(1,100);
             int guessCount = 0;
 
             int guess = -1;

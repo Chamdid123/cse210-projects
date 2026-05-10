@@ -7,7 +7,7 @@ class Program
     {
         List<int> numbers = new List<int>();
         
-        int userNumber = -1;
+        int userNumber= -1;
         while (userNumber != 0)
         {
             Console.Write("Enter a number (0 to quit): ");

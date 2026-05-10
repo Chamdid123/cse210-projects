@@ -8,7 +8,7 @@ class Program
         Console.Write("What is the grade percentage? ");
         string GradePercentage = Console.ReadLine();
 
-        int grade = int.Parse(GradePercentage);
+        int grade= int.Parse(GradePercentage);
         String letter ="";
         
         if (grade >= 90)
