@@ -1,34 +1,78 @@
-using System;
-
 class Program
 {
+    static List<string> prompts = new List<string>
+    {
+        "Who was the most interesting person I interacted with today?",
+        "What was the best part of my day?",
+        "How did I see the hand of the Lord in my life today?",
+        "What was the strongest emotion I felt today?",
+        "If I had one thing I could do over today, what would it be?"
+    };
+
     static void Main(string[] args)
     {
-        Job job1 = new Job();
-        job1._jobTitle = "software Engineer";
-        job1._company = "Microsoft";
-        job1._startYear = 2019;
-        job1._endYear = 2022;
+        Journal journal = new Journal();
+        bool running = true;
 
-        Job job2 = new Job();
-        job2._jobTitle = "Marketing Manager";
-        job2._company = "Google";
-        job2._startYear = 2022;
-        job2._endYear = 2023;
+        while (running)
+        {
+            Console.WriteLine("\nMenu:");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display journal");
+            Console.WriteLine("3. Save journal to file");
+            Console.WriteLine("4. Load journal from file");
+            Console.WriteLine("5. Quit");
+            Console.Write("Choose an option: ");
+            string choice = Console.ReadLine();
 
-        job1.Display();
-        job2.Display();
+            switch (choice)
+            {
+                case "1":
+                    WriteEntry(journal);
+                    break;
+                case "2":
+                    journal.Display();
+                    break;
+                case "3":
+                    SaveJournal(journal);
+                    break;
+                case "4":
+                    LoadJournal(journal);
+                    break;
+                case "5":
+                    running = false;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Try again.");
+                    break;
+            }
+        }
+    }
 
-        Resume myResume = new Resume();
-        myResume._name = "Muhammad Noordin";
+    static void WriteEntry(Journal journal)
+    {
+        Random rand = new Random();
+        string prompt = prompts[rand.Next(prompts.Count)];
+        Console.WriteLine($"\n{prompt}");
+        Console.Write("Your response: ");
+        string response = Console.ReadLine();
+        string date = DateTime.Now.ToShortDateString();
+        journal.AddEntry(new Entry(date, prompt, response));
+    }
 
-        myResume._jobs.Add(job1);
-        myResume._jobs.Add(job2);
+    static void SaveJournal(Journal journal)
+    {
+        Console.Write("Enter filename to save: ");
+        string filename = Console.ReadLine();
+        journal.SaveToFile(filename);
+        Console.WriteLine("Journal saved.");
+    }
 
-        Console.WriteLine();
-
-        myResume.Display();
-
-      
+    static void LoadJournal(Journal journal)
+    {
+        Console.Write("Enter filename to load: ");
+        string filename = Console.ReadLine();
+        journal.LoadFromFile(filename);
+        Console.WriteLine("Journal loaded.");
     }
 }
